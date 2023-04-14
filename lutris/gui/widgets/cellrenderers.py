@@ -36,7 +36,18 @@ class GridViewCellRendererText(Gtk.CellRendererText):
     def do_get_preferred_width(self, widget):
         return 0, 10000
 
+    def do_get_preferred_width_for_height(self, widget, width):
+        return 0, 10000
+
+    def do_get_preferred_height(self, widget):
+        height = self.get_quick_height(widget)
+        return height, height
+
     def do_get_preferred_height_for_width(self, widget, width):
+        height = self.get_quick_height(widget)
+        return height, height
+
+    def get_quick_height(self, widget):
         style_context = widget.get_style_context()
         font_description = style_context.get_font(Gtk.StateFlags.NORMAL)
         pc = widget.get_pango_context()
@@ -44,8 +55,10 @@ class GridViewCellRendererText(Gtk.CellRendererText):
         metrics = font.get_metrics()
         line_height = metrics.get_height() / Pango.SCALE
         height = line_height * 2
-        height = height + self.props.ypad * 2
-        return height, height
+        return height + self.props.ypad * 2
+
+
+
 
 class GridViewCellRendererImage(Gtk.CellRenderer):
     """A pixbuf cell renderer that takes not the pixbuf but a path to an image file;
