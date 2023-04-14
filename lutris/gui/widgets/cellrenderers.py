@@ -33,6 +33,7 @@ class GridViewCellRendererText(Gtk.CellRendererText):
         metrics = font.get_metrics()
         line_height = metrics.get_height() / Pango.SCALE
         height = line_height * 2
+        height = height + self.props.ypad * 2
         return height, height
 
 class GridViewCellRendererImage(Gtk.CellRenderer):
