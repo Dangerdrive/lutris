@@ -1,5 +1,6 @@
 # pylint:disable=using-constant-test
 # pylint:disable=comparison-with-callable
+import sys
 from math import floor
 
 import cairo
@@ -24,6 +25,15 @@ class GridViewCellRendererText(Gtk.CellRendererText):
     def set_width(self, width):
         self.props.wrap_width = width
 
+    def do_get_preferred_height_for_width(self, widget, width):
+        style_context = widget.get_style_context()
+        font_description = style_context.get_font(Gtk.StateFlags.NORMAL)
+        pc = widget.get_pango_context()
+        font = pc.load_font(font_description)
+        metrics = font.get_metrics()
+        line_height = metrics.get_height() / Pango.SCALE
+        height = line_height * 2
+        return height, height
 
 class GridViewCellRendererImage(Gtk.CellRenderer):
     """A pixbuf cell renderer that takes not the pixbuf but a path to an image file;
