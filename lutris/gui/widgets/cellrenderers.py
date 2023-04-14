@@ -33,6 +33,9 @@ class GridViewCellRendererText(Gtk.CellRendererText):
 
         Gtk.CellRendererText.do_render(self, cr, widget, background_area, cell_area, flags)
 
+    def do_get_preferred_width(self, widget):
+        return 0, 10000
+
     def do_get_preferred_height_for_width(self, widget, width):
         style_context = widget.get_style_context()
         font_description = style_context.get_font(Gtk.StateFlags.NORMAL)
