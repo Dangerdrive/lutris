@@ -184,9 +184,8 @@ class GridViewCellRendererImage(Gtk.CellRenderer):
             cr.fill()
 
             icon = self.get_cached_surface_by_path(widget, path, size=icon_size)
-            cr.set_source_surface(icon, badge_x, badge_y)
-
-            cr.paint_with_alpha(0.6)
+            cr.set_source_rgb(.5, .3,  0)
+            cr.mask_surface(icon, badge_x, badge_y)
 
         badge_width = icon_size[0]
         badge_height = icon_size[1]
